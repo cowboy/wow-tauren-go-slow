@@ -4,5 +4,6 @@
 ## Author: Cowboy
 ## Version: 0.1.0
 ## Category: Cowboy
+## X-Curse-Project-ID: 1801447
 
 TaurenGoSlow.lua

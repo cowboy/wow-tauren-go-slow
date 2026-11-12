@@ -5,19 +5,20 @@ on:
     types: [published]
 
 jobs:
-  build:
+  release:
+    runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - uses: Kira-NT/mc-publish@v3
+      - name: Check out code
+        uses: actions/checkout@v4
         with:
-          # If your build toolchain doesn't place the resulting artifacts directly in build/libs/,
-          # you will need to manually specify what you want to upload:
-          # files: build/libs/fabric/!(*-@(dev|sources|javadoc)).jar
+          fetch-depth: 0
 
-          # Only include this section if you wish to publish your assets to CurseForge.
-          curseforge-name: Tauren-Go-Slow
-          curseforge-id: 1801447
-          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
-
-          files: "*.(toc|xml|lua)"
+      # Packages the addon and uploads it to CurseForge (project ID comes
+      # from X-Curse-Project-ID in the .toc) and to the GitHub release
+      - name: Package and upload
+        uses: BigWigsMods/packager@v2
+        env:
+          CF_API_KEY: ${{ secrets.CURSEFORGE_TOKEN }}
+          GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
