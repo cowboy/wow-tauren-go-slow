@@ -1,0 +1,8 @@
+## Interface: 16001
+## Title: Tauren-Go-Slow
+## Notes: Toggleable auto-cancel of the Plainsrunning aura
+## Author: Cowboy
+## Version: 0.1.0
+## Category: Cowboy
+
+TaurenGoSlow.lua

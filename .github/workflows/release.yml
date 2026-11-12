@@ -1,0 +1,23 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    permissions:
+      contents: write
+    steps:
+      - uses: Kira-NT/mc-publish@v3
+        with:
+          # If your build toolchain doesn't place the resulting artifacts directly in build/libs/,
+          # you will need to manually specify what you want to upload:
+          # files: build/libs/fabric/!(*-@(dev|sources|javadoc)).jar
+
+          # Only include this section if you wish to publish your assets to CurseForge.
+          curseforge-name: Tauren-Go-Slow
+          curseforge-id: 1801447
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+
+          files: "*.(toc|xml|lua)"

@@ -1,0 +1,5 @@
+<Bindings>
+  <Binding name="TAURENGOSLOW_TOGGLE" header="TAURENGOSLOW" category="Cowboy">
+    TaurenGoSlow_Toggle()
+  </Binding>
+</Bindings>
