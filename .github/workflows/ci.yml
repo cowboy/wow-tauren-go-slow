@@ -7,10 +7,10 @@ on:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # On pushes, lint problems are reported as warnings and don't fail the
       # run. On releases, lint problems fail the run and block the release.
@@ -29,12 +29,12 @@ jobs:
   release:
     if: github.event_name == 'release'
     needs: lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     permissions:
       contents: write
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
