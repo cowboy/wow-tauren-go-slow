@@ -1,0 +1,47 @@
+name: Lint and Release
+
+on:
+  push:
+  release:
+    types: [published]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # On pushes, lint problems are reported as warnings and don't fail the
+      # run. On releases, lint problems fail the run and block the release.
+      - name: Lint
+        id: lint
+        uses: nebularg/actions-luacheck@v1
+        continue-on-error: ${{ github.event_name != 'release' }}
+        with:
+          annotate: warning
+          args: --no-color
+
+      - name: Warn on lint failure
+        if: steps.lint.outcome == 'failure'
+        run: echo "::warning::Luacheck found problems. See the Lint step for details."
+
+  release:
+    if: github.event_name == 'release'
+    needs: lint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Packages the addon and uploads it to CurseForge (project ID comes
+      # from X-Curse-Project-ID in the .toc) and to the GitHub release
+      - name: Package and upload
+        uses: BigWigsMods/packager@v2
+        env:
+          CF_API_KEY: ${{ secrets.CURSEFORGE_TOKEN }}
+          GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}

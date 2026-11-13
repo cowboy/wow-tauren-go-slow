@@ -2,8 +2,10 @@
 ## Title: Tauren-Go-Slow
 ## Notes: Toggleable auto-cancel of the Plainsrunning aura
 ## Author: Cowboy
-## Version: 0.1.0
+## Version: @project-version@
 ## Category: Cowboy
 ## X-Curse-Project-ID: 1801447
+## X-Website: https://www.curseforge.com/wow/addons/tauren-go-slow
+## X-Repository: https://github.com/cowboy/wow-tauren-go-slow
 
 TaurenGoSlow.lua
